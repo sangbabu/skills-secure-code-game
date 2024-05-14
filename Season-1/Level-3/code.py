@@ -45,11 +45,16 @@ class TaxPayer:
     def get_tax_form_attachment(self, path=None):
         tax_data = None
 
-        if not path:
-            raise Exception("Error: Tax form is required for all users")
+        try:
+            if not path:
+                raise Exception("Error: Tax form is required for all users")
 
-        with open(path, 'rb') as form:
-            tax_data = bytearray(form.read())
+            with open(path, 'rb') as form:
+                tax_data = bytearray(form.read())
+
+        except Exception as e:
+            print("An error occurred:", e)
+            return None
 
         # assume that tax data is returned on screen after this
         return path
